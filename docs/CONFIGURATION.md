@@ -50,6 +50,8 @@ Codex2API 采用三层配置架构：
 | `FAST_SCHEDULER_ENABLED` | 否 | `false` | 通过环境变量启用快速调度器（也可在管理后台运行时开启） |
 | `TZ` | 否 | UTC | 时区，如 `Asia/Shanghai` |
 
+兼容 Palmer 旧 `codex-as-api` 容器时，`CODEX_AS_API_PORT` 可作为 `CODEX_PORT` 的后备值，`CODEX_AS_API_HOST` 可作为 `CODEX_BIND` 的后备值，`CODEX_AS_API_API_KEY` 会在启动时作为下游 API Key 导入一次。OpenClaw OAuth 导入与 Cloudflare Tunnel 单容器部署见 [OpenClaw + Cloudflare Tunnel](OPENCLAW_CLOUDFLARED.md)。
+
 ### Codex 上游稳定性配置
 
 | 变量 | 必填 | 默认值 | 说明 |

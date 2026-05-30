@@ -138,6 +138,15 @@ func main() {
 			settings.ProxyURL, settings.MaxConcurrency, settings.GlobalRPM, settings.PgMaxConns, settings.RedisPoolSize)
 	}
 
+	seedCtx, seedCancel := context.WithTimeout(context.Background(), 10*time.Second)
+	if err := auth.SeedAPIKeysFromEnv(seedCtx, db); err != nil {
+		log.Printf("环境 API Key 导入失败: %v", err)
+	}
+	if err := auth.ImportOpenClawFromEnv(seedCtx, db); err != nil {
+		log.Printf("OpenClaw Codex OAuth 导入失败: %v", err)
+	}
+	seedCancel()
+
 	// 4. 初始化缓存（使用数据库中保存的连接池大小）
 	redisPoolSize := 30
 	if settings.RedisPoolSize > 0 {

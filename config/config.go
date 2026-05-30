@@ -117,6 +117,8 @@ func Load(envPath string) (*Config, error) {
 		fmt.Sscanf(port, "%d", &cfg.Port)
 	} else if port := os.Getenv("PORT"); port != "" {
 		fmt.Sscanf(port, "%d", &cfg.Port)
+	} else if port := os.Getenv("CODEX_AS_API_PORT"); port != "" {
+		fmt.Sscanf(port, "%d", &cfg.Port)
 	}
 	cfg.AdminSecret = strings.TrimSpace(os.Getenv("ADMIN_SECRET"))
 	cfg.AllowAnonymousV1 = parseBoolEnv(os.Getenv("CODEX_ALLOW_ANONYMOUS"))
@@ -124,6 +126,9 @@ func Load(envPath string) (*Config, error) {
 	// 安全防护由 fail-closed 中间件 + 首启自助初始化 (/api/admin/bootstrap) + 启动 banner 共同保证；
 	// 想要严格仅本机访问的用户可设 CODEX_BIND=127.0.0.1。
 	cfg.BindAddress = strings.TrimSpace(os.Getenv("CODEX_BIND"))
+	if cfg.BindAddress == "" {
+		cfg.BindAddress = strings.TrimSpace(os.Getenv("CODEX_AS_API_HOST"))
+	}
 	if cfg.BindAddress == "" {
 		cfg.BindAddress = "0.0.0.0"
 	}

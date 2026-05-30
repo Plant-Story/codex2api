@@ -179,6 +179,7 @@ Notes:
 | [API Documentation](docs/API.md) | API endpoints, request and response examples, error codes | `docs/API.md` |
 | [Deployment Guide](docs/DEPLOYMENT.md) | Deployment modes, upgrade guide, backup and restore | `docs/DEPLOYMENT.md` |
 | [Configuration Guide](docs/CONFIGURATION.md) | Environment variables, system settings, configuration priority | `docs/CONFIGURATION.md` |
+| [OpenClaw + Cloudflare Tunnel](docs/OPENCLAW_CLOUDFLARED.md) | Palmer/OpenClaw OAuth import and single-container tunnel deployment | `docs/OPENCLAW_CLOUDFLARED.md` |
 | [Architecture](docs/ARCHITECTURE.md) | System architecture, scheduling algorithm, storage design | `docs/ARCHITECTURE.md` |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | Common issues, diagnostic scripts, fixes | `docs/TROUBLESHOOTING.md` |
 | [Contributing](docs/CONTRIBUTING.md) | Development rules, PR workflow, code standards | `docs/CONTRIBUTING.md` |

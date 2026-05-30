@@ -186,6 +186,29 @@ func TestLoadReadsMaxRequestBodySizeFromEnv(t *testing.T) {
 	}
 }
 
+func TestLoadAcceptsCodexAsAPIPortAndHostAliases(t *testing.T) {
+	t.Setenv("DATABASE_DRIVER", "")
+	t.Setenv("DATABASE_HOST", "postgres")
+	t.Setenv("CACHE_DRIVER", "")
+	t.Setenv("REDIS_ADDR", "redis:6379")
+	t.Setenv("CODEX_PORT", "")
+	t.Setenv("PORT", "")
+	t.Setenv("CODEX_BIND", "")
+	t.Setenv("CODEX_AS_API_PORT", "18080")
+	t.Setenv("CODEX_AS_API_HOST", "127.0.0.1")
+
+	cfg, err := Load("__not_exists__.env")
+	if err != nil {
+		t.Fatalf("Load() 返回错误: %v", err)
+	}
+	if got := cfg.Port; got != 18080 {
+		t.Fatalf("Port = %d, want 18080", got)
+	}
+	if got := cfg.BindAddress; got != "127.0.0.1" {
+		t.Fatalf("BindAddress = %q, want 127.0.0.1", got)
+	}
+}
+
 func TestLoadDefaultsCodexUpstreamTransportToHTTP(t *testing.T) {
 	t.Setenv("DATABASE_DRIVER", "")
 	t.Setenv("DATABASE_HOST", "postgres")
