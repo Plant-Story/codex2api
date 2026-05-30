@@ -11,6 +11,9 @@ This fork keeps a lightweight Palmer deployment path compatible with the previou
 The startup importer recognizes these compatibility variables:
 
 ```bash
+DATABASE_DRIVER=sqlite
+DATABASE_PATH=/data/codex2api.db
+CACHE_DRIVER=memory
 CODEX_AS_API_PORT=18080
 CODEX_AS_API_HOST=0.0.0.0
 CODEX_AS_API_API_KEY=sk-...
@@ -44,10 +47,11 @@ Run it with the OpenClaw auth directory and a Cloudflare tunnel token file mount
 docker run \
   --env-file .env \
   -e CLOUDFLARED_TOKEN_FILE=/run/secrets/cloudflared/token \
+  -v /path/to/codex2api-data:/data \
   -v /Users/palmer/.openclaw/agents/main/agent:/Users/palmer/.openclaw/agents/main/agent:ro \
   -v /path/to/cloudflared-token-dir:/run/secrets/cloudflared:ro \
   -p 127.0.0.1:18080:18080 \
   codex2api-cloudflared:latest
 ```
 
-Apple `container` can use the same image, env file, bind mounts, and port mapping.
+Apple `container` can use the same image, env file, bind mounts, and port mapping. Keep `/data` mounted if you want the SQLite database, imported account metadata, API keys, and usage logs to survive container replacement.
